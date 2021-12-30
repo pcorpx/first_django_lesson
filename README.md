@@ -34,9 +34,15 @@ Also you should provide your environment with the right sef of variables and the
   *A list of strings representing the host/domain names that this Django site can serve*
 * __DEBUG__
   *A boolean that turns on/off debug mode. Default: False*
+
+Put those variables with values to .env file in the same directory as file manage.py 
+
+Before launching the website you also should create user for authentication to the admin panel:
+
+`python manage.py createsuperuser`
  
- ### Launch of the website
+### Launch of the website
  
- Yo may use any webserver for serving website. For example, it is possible to start with simple python build-in webserver:
+You may use any webserver for serving website. For example, it is possible to start with simple python build-in webserver:
  
- `python -m http.server 8000`
+`python -m http.server 8000`
