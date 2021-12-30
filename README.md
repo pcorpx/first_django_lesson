@@ -37,6 +37,6 @@ Also you should provide your environment with the right sef of variables and the
  
  ### Launch of the website
  
- Yo may use any webserver for serving website. For example, you it is possible to start with simple python build-in webserver:
+ Yo may use any webserver for serving website. For example, it is possible to start with simple python build-in webserver:
  
  `python -m http.server 8000`
