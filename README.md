@@ -1,6 +1,6 @@
 # Where to go
 
-This website based on Django and serves as a learning project. It presents information about different places on the map. It has convinient admin panel.
+This website based on Django and serves as a learning project. It presents information about different places on the map. It has convinient admin panel. You may follow this link https://pcorp.pythonanywhere.com/ to see live.
 
 ## Getting Started
 
