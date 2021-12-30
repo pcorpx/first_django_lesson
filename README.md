@@ -2,6 +2,10 @@
 
 This website based on Django and serves as a learning project. It presents information about different places on the map. It has convinient admin panel.
 
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for use.
+
 ### Prerequisites
 
 Clone project to your local machine:
@@ -31,3 +35,8 @@ Also you should provide your environment with the right sef of variables and the
 * __DEBUG__
   *A boolean that turns on/off debug mode. Default: False*
  
+ ### Launch of the website
+ 
+ Yo may use any webserver for serving website. For example, you it is possible to start with simple python build-in webserver:
+ 
+ `python -m http.server 8000`
