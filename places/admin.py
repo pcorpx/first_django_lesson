@@ -6,14 +6,13 @@ from adminsortable2.admin import SortableInlineAdminMixin
 
 class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
-    readonly_fields = ['image_preview',]
+    readonly_fields = ['image_preview', ]
     fields = ['image', 'image_preview', 'position']
     extra = 0
 
     def image_preview(self, obj):
         html = format_html('<img src="{url}" height=200px />',
-            url = obj.image.url
-        )
+                           url=obj.image.url)
         return html
 
 

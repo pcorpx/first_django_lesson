@@ -1,7 +1,12 @@
 import requests
 from places.models import Place, Image
+from environs import Env
 
-response = requests.get('https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/places/%D0%90%D0%BD%D1%82%D0%B8%D0%BA%D0%B0%D1%84%D0%B5%20Bizone.json')
+
+env = Env()
+env.read_env()
+source_link = env.str('SOURCE_LINK')
+response = requests.get(source_link)
 place_data = response.json()
 
 created_place = Place.objects.create(
@@ -12,4 +17,3 @@ created_place = Place.objects.create(
     lat = place_data.lat,
     lng = place_data.lng
 )
-

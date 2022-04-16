@@ -4,11 +4,9 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('places', '0005_alter_image_options'),
     ]
-
     operations = [
         migrations.AlterField(
             model_name='image',

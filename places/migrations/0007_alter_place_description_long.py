@@ -5,11 +5,9 @@ import tinymce.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('places', '0006_alter_image_position'),
     ]
-
     operations = [
         migrations.AlterField(
             model_name='place',

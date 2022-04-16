@@ -4,11 +4,9 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('places', '0003_image_position'),
     ]
-
     operations = [
         migrations.AddField(
             model_name='place',
