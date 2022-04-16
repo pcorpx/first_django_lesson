@@ -11,7 +11,7 @@ class Place(models.Model):
     lng = models.FloatField()
 
     def __str__(self):
-        return f'{self.title}'
+        return self.title
 
 
 class Image(models.Model):
