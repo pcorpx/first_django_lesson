@@ -16,7 +16,7 @@ def index(request):
                       },
                       'properties': {
                            'title': place.title,
-                           'placeId': place.placeId,
+                           'placeId': place.place_id,
                            'detailsUrl': reverse('get-place',
                                                  args=[place.id])
                       }
@@ -27,7 +27,7 @@ def index(request):
         'type': 'FeatureCollection',
         'features': features
     }
-    return render(request, 'index.html', 
+    return render(request, 'index.html',
                   context={'places_data': places_data})
 
 

@@ -10,10 +10,10 @@ response = requests.get(source_link)
 place_data = response.json()
 
 created_place = Place.objects.create(
-    title = place_data.title,
-    placeId = '',
-    description_short = place_data.description_short,
-    description_long = place_data.description_long,
-    lat = place_data.lat,
-    lng = place_data.lng
+    title=place_data.title,
+    place_id='',
+    description_short=place_data.description_short,
+    description_long=place_data.description_long,
+    lat=place_data.lat,
+    lng=place_data.lng
 )
