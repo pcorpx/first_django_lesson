@@ -19,6 +19,8 @@ It's necessary to have right environment:
 * django-admin-sortable2==1.0.3
 * django-tinymce==3.4.0
 * environs==9.3.5
+* requests==2.27.0
+* python-slugify==6.1.1
 
 You may use requirements file to prepare your environment:
 
@@ -46,3 +48,7 @@ Before launching the website you also should create user for authentication to t
 You may use any webserver for serving website. For example, it is possible to start with simple python build-in webserver:
  
 `python -m http.server 8000`
+
+### To fill the website with data you may use script as follows
+
+`python manage.py load_place _url to the json data_`
