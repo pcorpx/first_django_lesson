@@ -51,4 +51,4 @@ You may use any webserver for serving website. For example, it is possible to st
 
 ### To fill the website with data you may use script as follows
 
-`python manage.py load_place _url to the json data_`
+`python manage.py load_place <url_to_the_json_data>`
