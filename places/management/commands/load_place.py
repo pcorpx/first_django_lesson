@@ -12,49 +12,57 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('src_link', nargs='+')
 
-    def attache_image(self, img_link, img_data, place_obj, position):
-        img_content = ContentFile(img_data.content)
-        img_obj = Image.objects.create(position=position, place=place_obj)
-        img_name = img_link.split('/')[-1]
-        img_obj.image.save(img_name, img_content)
-        img_id = img_obj.save()
-        return img_id
+    def attache_image(self, image_link, requested_image,
+                      created_place, position):
+        image = ContentFile(requested_image.content)
+        created_image = Image.objects.create(position=position,
+                                             place=created_place)
+        image_name = image_link.split('/')[-1]
+        created_image.image.save(image_name, image)
+        image_id = created_image.save()
+        return image_id
 
     def handle(self, *args, **options):
         for src_link in options['src_link']:
             try:
-                place_json = requests.get(src_link).json()
+                requested_place = requests.get(src_link).json()
             except requests.exceptions.RequestException as err:
                 self.stdout.write(self.style.ERROR(err))
                 continue
-            place_obj, created = Place.objects.get_or_create(
-                slug=slugify(place_json['title']),
+            created_place, created = Place.objects.get_or_create(
+                slug=slugify(requested_place['title']),
                 defaults={
-                    'title': place_json['title'],
-                    'description_short': place_json['description_short'],
-                    'description_long': place_json['description_long'],
-                    'lat': place_json['coordinates']['lat'],
-                    'lng': place_json['coordinates']['lng'],
+                    'title': requested_place['title'],
+                    'description_short': requested_place['description_short'],
+                    'description_long': requested_place['description_long'],
+                    'lat': requested_place['coordinates']['lat'],
+                    'lng': requested_place['coordinates']['lng'],
                 }
             )
             if created:
                 position = 0
-                for img_link in place_json['imgs']:
+                for image_link in requested_place['imgs']:
                     try:
-                        img_data = requests.get(img_link)
+                        requested_image = requests.get(image_link)
                     except requests.exceptions.RequestException as err:
                         self.stdout.write(self.style.ERROR(err))
                         continue
                     try:
-                        self.attache_image(img_link, img_data,
-                                           place_obj, position)
+                        self.attache_image(image_link, requested_image,
+                                           created_place, position)
                         position += 1
                     except Exception as err:
                         self.stdout.write(self.style.ERROR(err))
-                if len(place_obj.images.all()) == len(place_json['imgs']):
+                if len(created_place.images.all()) == \
+                   len(requested_place['imgs']):
                     self.stdout.write(self.style.SUCCESS(
-                        f'Successfully processed data for {place_obj.title}'))
+                        'Successfully processed data for ' +
+                        created_place.title
+                        )
+                    )
                 else:
                     self.stdout.write(self.style.WARNING(
-                        f'There were not all images loaded for \
-                        {place_obj.title}'))
+                        'There were not all images loaded for ' +
+                        created_place.title
+                        )
+                    )
