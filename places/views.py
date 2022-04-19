@@ -33,9 +33,7 @@ def index(request):
 
 def get_place_details(request, place_id):
     place = get_object_or_404(Place, id=place_id)
-    images = []
-    for image in place.images.all():
-        images.append(image.image.url)
+    images = [image.image.url for image in place.images.all()]
     requested_place = {
         'title': place.title,
         'imgs': images,
