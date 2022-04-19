@@ -23,12 +23,12 @@ def index(request):
                   }
         features.append(feature)
 
-    places_data = {
+    requested_places = {
         'type': 'FeatureCollection',
         'features': features
     }
     return render(request, 'index.html',
-                  context={'places_data': places_data})
+                  context={'places': requested_places})
 
 
 def get_place_details(request, place_id):
@@ -36,7 +36,7 @@ def get_place_details(request, place_id):
     images = []
     for image in place.images.all():
         images.append(image.image.url)
-    place_data = {
+    requested_place = {
         'title': place.title,
         'imgs': images,
         'description_short': place.description_short,
@@ -46,6 +46,6 @@ def get_place_details(request, place_id):
             'lat': place.lat
         }
     }
-    return JsonResponse(place_data, json_dumps_params={
+    return JsonResponse(requested_place, json_dumps_params={
         'ensure_ascii': False, 'indent': 4
     })
