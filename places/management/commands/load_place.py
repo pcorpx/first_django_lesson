@@ -4,8 +4,6 @@ import logging
 from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
 from slugify import slugify
-from json.decoder import JSONDecodeError
-
 from places.models import Place, Image
 
 
@@ -76,47 +74,49 @@ class Command(BaseCommand):
                     'lng': requested_place['coordinates']['lng'],
                 }
             )
-            if created:
-                for position, image_link in enumerate(requested_place['imgs']):
-                    try:
-                        response = requests.get(image_link)
-                        response.raise_for_status()
-                        requested_image = response.content
-                    except requests.exceptions.HTTPError as err:
-                        self.stdout.write(self.style.ERROR('Http Error ' + str(err)))
-                        logging.debug(err)
-                        continue
-                    except requests.exceptions.ConnectionError as err:
-                        self.stdout.write(self.style.ERROR('Error Connecting ' + str(err)))
-                        logging.debug(err)
-                        continue
-                    except requests.exceptions.Timeout as err:
-                        self.stdout.write(self.style.ERROR('Timeot Error ' + str(err)))
-                        logging.debug(err)
-                        continue
-                    except requests.exceptions.MissingSchema:
-                        self.stdout.write(self.style.ERROR('Non valid format of url (ex. http://name.ru)'))
-                        logging.debug('Non valid format of url. (ex. http://name.ru)')
-                        continue
-                    except requests.exceptions.RequestException as err:
-                        self.stdout.write(self.style.ERROR(err))
-                        logging.debug(err)
-                        continue
-                    try:
-                        self.attache_image(image_link, requested_image,
-                                           created_place, position)
-                    except Exception as err:
-                        self.stdout.write(self.style.ERROR(err))
-                if len(created_place.images.all()) == \
-                   len(requested_place['imgs']):
-                    self.stdout.write(self.style.SUCCESS(
-                        'Successfully processed data for ' +
-                        created_place.title
-                        )
+            if not created:
+                continue
+
+            for position, image_link in enumerate(requested_place['imgs']):
+                try:
+                    response = requests.get(image_link)
+                    response.raise_for_status()
+                    requested_image = response.content
+                except requests.exceptions.HTTPError as err:
+                    self.stdout.write(self.style.ERROR('Http Error ' + str(err)))
+                    logging.debug(err)
+                    continue
+                except requests.exceptions.ConnectionError as err:
+                    self.stdout.write(self.style.ERROR('Error Connecting ' + str(err)))
+                    logging.debug(err)
+                    continue
+                except requests.exceptions.Timeout as err:
+                    self.stdout.write(self.style.ERROR('Timeot Error ' + str(err)))
+                    logging.debug(err)
+                    continue
+                except requests.exceptions.MissingSchema:
+                    self.stdout.write(self.style.ERROR('Non valid format of url (ex. http://name.ru)'))
+                    logging.debug('Non valid format of url. (ex. http://name.ru)')
+                    continue
+                except requests.exceptions.RequestException as err:
+                    self.stdout.write(self.style.ERROR(err))
+                    logging.debug(err)
+                    continue
+                try:
+                    self.attache_image(image_link, requested_image,
+                                        created_place, position)
+                except Exception as err:
+                    self.stdout.write(self.style.ERROR(err))
+            if len(created_place.images.all()) == \
+                len(requested_place['imgs']):
+                self.stdout.write(self.style.SUCCESS(
+                    'Successfully processed data for ' +
+                    created_place.title
                     )
-                else:
-                    self.stdout.write(self.style.WARNING(
-                        'There were not all images loaded for ' +
-                        created_place.title
-                        )
+                )
+            else:
+                self.stdout.write(self.style.WARNING(
+                    'There were not all images loaded for ' +
+                    created_place.title
                     )
+                )
