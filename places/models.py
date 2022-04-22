@@ -1,4 +1,3 @@
-from tkinter.tix import Tree
 from django.db import models
 from tinymce import models as tinymce_models
 
@@ -25,8 +24,7 @@ class Place(models.Model):
 
 class Image(models.Model):
     image = models.ImageField(upload_to='images', verbose_name='Изображение')
-    position = models.IntegerField(default=0, blank=False, null=False,
-                                   verbose_name='Позиция')
+    position = models.IntegerField(default=0, verbose_name='Позиция')
     place = models.ForeignKey(Place, on_delete=models.CASCADE,
                               related_name='images', verbose_name='Место')
 
