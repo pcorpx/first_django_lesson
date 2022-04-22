@@ -77,8 +77,7 @@ class Command(BaseCommand):
                 }
             )
             if created:
-                position = 0
-                for image_link in requested_place['imgs']:
+                for position, image_link in enumerate(requested_place['imgs']):
                     try:
                         response = requests.get(image_link)
                         response.raise_for_status()
@@ -106,7 +105,6 @@ class Command(BaseCommand):
                     try:
                         self.attache_image(image_link, requested_image,
                                            created_place, position)
-                        position += 1
                     except Exception as err:
                         self.stdout.write(self.style.ERROR(err))
                 if len(created_place.images.all()) == \
