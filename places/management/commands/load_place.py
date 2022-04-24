@@ -21,7 +21,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('src_link', nargs='+')
 
-    def attache_image(self, image_link, requested_image,
+    def attach_image(self, image_link, requested_image,
                       created_place, position):
         image = ContentFile(requested_image)
         created_image = Image.objects.create(position=position,
@@ -103,7 +103,7 @@ class Command(BaseCommand):
                     logging.debug(err)
                     continue
                 try:
-                    self.attache_image(image_link, requested_image,
+                    self.attach_image(image_link, requested_image,
                                         created_place, position)
                 except Exception as err:
                     self.stdout.write(self.style.ERROR(err))
