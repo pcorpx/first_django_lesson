@@ -27,7 +27,7 @@ It's necessary to have right environment:
 You may use requirements file to prepare your environment:
 
 ```console
-pip install -r requirements.txt
+pip install -r *requirements.txt*
 ```
 
 Also you should provide your environment with the right sef of variables and their values:
