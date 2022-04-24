@@ -10,7 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 Clone project to your local machine:
 
-```bash
+```console
 git clone ...
 ```
 
@@ -26,7 +26,7 @@ It's necessary to have right environment:
 
 You may use requirements file to prepare your environment:
 
-```bash
+```console
 pip install -r requirements.txt
 ```
 
@@ -45,7 +45,7 @@ Put those variables with values to .env file in the same directory as file manag
 
 Before launching the website you also should create user for authentication to the admin panel:
 
-```bash
+```console
 python manage.py createsuperuser
 ```
  
@@ -53,13 +53,13 @@ python manage.py createsuperuser
  
 You may use any webserver for serving website. For example, it is possible to start with simple python build-in webserver:
  
-```bash
+```console
 python -m http.server 8000
 ```
 
 ### To fill the website with data you may use script as follows
 
-```bash
+```console
 python manage.py load_place <url_to_the_json_data>
 ```
 
