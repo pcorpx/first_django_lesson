@@ -10,7 +10,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 Clone project to your local machine:
 
-`git clone ...`
+```bash
+git clone ...
+```
 
 It's necessary to have right environment:
 
@@ -24,7 +26,9 @@ It's necessary to have right environment:
 
 You may use requirements file to prepare your environment:
 
-`pip install -r requirements.txt`
+```bash
+pip install -r requirements.txt
+```
 
 Also you should provide your environment with the right sef of variables and their values:
 
@@ -41,22 +45,28 @@ Put those variables with values to .env file in the same directory as file manag
 
 Before launching the website you also should create user for authentication to the admin panel:
 
-`python manage.py createsuperuser`
+```bash
+python manage.py createsuperuser
+```
  
 ### Launch of the website
  
 You may use any webserver for serving website. For example, it is possible to start with simple python build-in webserver:
  
-`python -m http.server 8000`
+```bash
+python -m http.server 8000
+```
 
 ### To fill the website with data you may use script as follows
 
-`python manage.py load_place <url_to_the_json_data>`
+```bash
+python manage.py load_place <url_to_the_json_data>
+```
 
 The <url_to_the_json_data> is the url link to json file with data of place.
 The following json is an example of valid data which you may use to make your own file.
 
-```
+```json
 {
     "title": "Лагерь «Подмосковный»",
     "imgs": [
